@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .full_width {
+        @apply w-full h-full
+    }
+
+    .wrapper {
+        @apply max-w-[1440px] w-[100%] mx-auto
+    }
+
+    .conteiner {
+        @apply w-[100%] px-[15px]
+    }
+
+    .header_link {
+        @apply leading-[60px] h-full block py-2.5 text-lg font-bold font-roboto border-t-[3px] border-solid duration-200
+    }
+
+    .slider_btn {
+        @apply w-[34px] h-[34px] flex items-center justify-center bg-black absolute top-[50%] translate-y-[-50%] z-[2] opacity-0
+    }
+}
+
+
+.mySwiper3 .swiper-slide {
+    border: 10px solid white;
+}
+
+.mySwiper3 .swiper-slide-thumb-active {
+    border: 10px solid black;
+}
