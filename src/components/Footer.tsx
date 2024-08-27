@@ -1,82 +1,36 @@
+
+import axios from "axios"
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { AssideBlock } from "./LeftAsside";
 
-const data = [
-    {
-        title: "Недавние новости",
-        children: [
-            {
-                img: "/assets/img/swiper_image.jpg",
-                title: <span className="text-white">Алкоголдук продукцияларды сатууга лицензия алуу жол-жобосу жөнөкөйлөштүрүлдү /Упрощена процедура получения лицензии на реализацию алкогольной продукции.</span>,
-                count: 4,
-                titleLink: "/"
-            },
-            {
-                img: "/assets/img/swiper_image.jpg",
-                title: <span className="text-white">Алкоголдук продукцияларды сатууга лицензия алуу жол-жобосу жөнөкөйлөштүрүлдү /Упрощена процедура получения лицензии на реализацию алкогольной продукции.</span>,
-                count: 4,
-                titleLink: "/"
-            },
-            {
-                img: "/assets/img/swiper_image.jpg",
-                title: <span className="text-white">Алкоголдук продукцияларды сатууга лицензия алуу жол-жобосу жөнөкөйлөштүрүлдү /Упрощена процедура получения лицензии на реализацию алкогольной продукции.</span>,
-                count: 4,
-                titleLink: "/"
-            }
-        ]
-    },
-    {
-        title: "Недавние новости",
-        children: [
-            {
-                img: "/assets/img/swiper_image.jpg",
-                title: <span className="text-white">Алкоголдук продукцияларды сатууга лицензия алуу жол-жобосу жөнөкөйлөштүрүлдү /Упрощена процедура получения лицензии на реализацию алкогольной продукции.</span>,
-                count: 4,
-                titleLink: "/"
-            },
-            {
-                img: "/assets/img/swiper_image.jpg",
-                title: <span className="text-white">Алкоголдук продукцияларды сатууга лицензия алуу жол-жобосу жөнөкөйлөштүрүлдү /Упрощена процедура получения лицензии на реализацию алкогольной продукции.</span>,
-                count: 4,
-                titleLink: "/"
-            },
-            {
-                img: "/assets/img/swiper_image.jpg",
-                title: <span className="text-white">Алкоголдук продукцияларды сатууга лицензия алуу жол-жобосу жөнөкөйлөштүрүлдү /Упрощена процедура получения лицензии на реализацию алкогольной продукции.</span>,
-                count: 4,
-                titleLink: "/"
-            }
-        ]
-    },
-    {
-        title: "Недавние новости",
-        children: [
-            {
-                img: "/assets/img/swiper_image.jpg",
-                title: <span className="text-white">Алкоголдук продукцияларды сатууга лицензия алуу жол-жобосу жөнөкөйлөштүрүлдү /Упрощена процедура получения лицензии на реализацию алкогольной продукции.</span>,
-                count: 4,
-                titleLink: "/"
-            },
-            {
-                img: "/assets/img/swiper_image.jpg",
-                title: <span className="text-white">Алкоголдук продукцияларды сатууга лицензия алуу жол-жобосу жөнөкөйлөштүрүлдү /Упрощена процедура получения лицензии на реализацию алкогольной продукции.</span>,
-                count: 4,
-                titleLink: "/"
-            },
-            {
-                img: "/assets/img/swiper_image.jpg",
-                title: <span className="text-white">Алкоголдук продукцияларды сатууга лицензия алуу жол-жобосу жөнөкөйлөштүрүлдү /Упрощена процедура получения лицензии на реализацию алкогольной продукции.</span>,
-                count: 4,
-                titleLink: "/"
-            }
-        ]
-    },
-]
-
 export default function Footer() {
+    const [state, setState] = useState<any>(null)
+    const [data, setData] = useState<any>(null)
+
+    useEffect(() => {
+        axios.get(`https://datkaao.pythonanywhere.com/api/v1/news/?offset=1`)
+            .then(res => {
+                setState(res?.data?.results)
+            })
+    }, [])
+
+    useEffect(() => {
+        if (!!state) {
+            setData([
+                { title: "Недавние новости", children: [state[0], state[1], state[2]] },
+                { title: "Недавние новости", children: [state[3], state[4], state[5]] },
+                { title: "Недавние новости", children: [state[0], state[1], state[2]] },
+            ])
+        }
+    }, [state])
+
     return (
         <footer>
-            <div className="px-4 bg-base_blue flex gap-[30px] pt-[47px] pb-[26px]">
+            <div className="px-4 bg-base_blue flex 1024px:flex-wrap gap-[30px] pt-[47px] pb-[26px]">
                 {
+                    !!data
+                    &&
                     data.map((item: any, index: number) => (
                         <FooterBlock
                             key={index}
@@ -86,10 +40,10 @@ export default function Footer() {
                                 item.children.map((el: any, ind: number) => (
                                     <AssideBlock
                                         key={ind}
-                                        img={el.img}
-                                        title={el.title}
-                                        count={el.count}
-                                        titleLink={el.titleLink}
+                                        img={el.images[0].image}
+                                        title={<span className="text-white">{el.name}</span>}
+                                        count={0}
+                                        titleLink="/"
                                     />
                                 ))
                             }
@@ -97,22 +51,22 @@ export default function Footer() {
                     ))
                 }
                 <FooterBlock title="Контакты">
-                    <div className="max-w-[300px] w-[100%] min-w-[300px] flex flex-col gap-[10px]">
+                    <div className="max-w-[300px] 600px:max-w-[100%] 600px:min-w-[100%] w-[100%] min-w-[200px] flex flex-col gap-[10px]">
                         <div className="flex items-center justify-between w-[100%]">
                             <p className="text-white text-[14px] font-roboto font-[500] leading-[18px]">Новости</p>
                             <p className="text-white text-[14px] font-roboto font-[500] leading-[18px]">(117)</p>
                         </div>
                         <div className="flex items-center justify-between w-[100%]">
-                            <p className="text-white text-[14px] font-roboto font-[500] leading-[18px]">Новости</p>
-                            <p className="text-white text-[14px] font-roboto font-[500] leading-[18px]">(117)</p>
+                            <p className="text-white text-[14px] font-roboto font-[500] leading-[18px]">Без категории</p>
+                            <p className="text-white text-[14px] font-roboto font-[500] leading-[18px]">(4)</p>
                         </div>
                         <div className="flex items-center justify-between w-[100%]">
-                            <p className="text-white text-[14px] font-roboto font-[500] leading-[18px]">Новости</p>
-                            <p className="text-white text-[14px] font-roboto font-[500] leading-[18px]">(117)</p>
+                            <p className="text-white text-[14px] font-roboto font-[500] leading-[18px]">Паспорт</p>
+                            <p className="text-white text-[14px] font-roboto font-[500] leading-[18px]">(1)</p>
                         </div>
                         <div className="flex items-center justify-between w-[100%]">
-                            <p className="text-white text-[14px] font-roboto font-[500] leading-[18px]">Новости</p>
-                            <p className="text-white text-[14px] font-roboto font-[500] leading-[18px]">(117)</p>
+                            <Link to="/postanovleniya" className="text-white text-[14px] font-roboto font-[500] leading-[18px]">Постановления</Link>
+                            <p className="text-white text-[14px] font-roboto font-[500] leading-[18px]">(1)</p>
                         </div>
                     </div>
                 </FooterBlock>
@@ -126,9 +80,10 @@ export default function Footer() {
 
 function FooterBlock({ children, title }: { children: any, title: string }) {
     return (
-        <div>
+        <div className="max-w-[300px] 600px:max-w-[100%] 600px:min-w-[100%] min-w-[200px] w-[100%]">
             <h3 className="text-white font-roboto font-[600] text-[18px] leading-[20px] uppercase pb-[16px] mb-[20px] border-b-[1px] border-solid border-b-[#eaeaea]">{title}</h3>
             {children}
         </div>
     )
 }
+

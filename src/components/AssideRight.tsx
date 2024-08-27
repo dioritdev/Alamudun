@@ -2,7 +2,7 @@ import { AssideBlock, BlockStyleds } from "./LeftAsside";
 
 export default function AssideRight() {
     return (
-        <div className="max-w-[300px] w-[100%] flex flex-col gap-[20px]">
+        <div className="max-w-[300px] 1024px:max-w-[100%] min-w-[250px] w-[100%] flex flex-col gap-[20px]">
             <div className="bg-white p-5 w-[100%]">
                 <div className="flex items-center gap-2.5 border border-solid border-milk_color p-1 px-2">
                     <input type="text" placeholder="Поиск..." className="font-normal text-base font-roboto text-black_text placeholder:text-black_text outline-none w-full" />

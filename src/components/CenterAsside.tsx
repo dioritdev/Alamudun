@@ -5,72 +5,33 @@ import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BlockStyleds } from './LeftAsside';
-
-const data = [
-    {
-        img: "/assets/img/swiper_image.jpg",
-        text: "Алкоголдук продукцияларды сатууга лицензия алуу жол-жобосу жөнөкөйлөштүрүлдү /Упрощена процедура получения лицензии на реализацию алкогольной продукции.",
-        count: 4,
-        className: "col-[1_/_7]"
-    },
-    {
-        img: "/assets/img/swiper_image.jpg",
-        text: "Объявление о формировании электронной базы данных экспертов для оценки проектных предложений",
-        count: 4,
-        className: "col-[1_/_4]"
-    },
-    {
-        img: "/assets/img/swiper_image.jpg",
-        text: "Аламүдүн аймагынын балдары үчүн жаңы жылдык майрамдык иш-чаралар өткөрүлдү",
-        count: 4,
-        className: "col-[4_/_7]"
-    },
-    {
-        img: "/assets/img/swiper_image.jpg",
-        text: "Объявление о недопущении потребления электроэнергии сверх норматива",
-        count: 4,
-        className: "col-[1_/_3]"
-    },
-    {
-        img: "/assets/img/swiper_image.jpg",
-        text: "ЧЕТКЕ КАГУУ / ОПРОВЕРЖЕНИЕ новости о задержании главы а.о. и...",
-        count: 4,
-        className: "col-[3_/_5]"
-    },
-    {
-        img: "/assets/img/swiper_image.jpg",
-        text: "2023-2024-жылдардын кыш мезгилиндеги кырдаалга мониторинг жүргүзүү боюнча Штаб түзүү жөнүндө...",
-        count: 4,
-        className: "col-[5_/_7]"
-    },
-]
-
-const SwiperData = [
-    { src: "https://swiperjs.com/demos/images/nature-1.jpg" },
-    { src: "https://swiperjs.com/demos/images/nature-1.jpg" },
-    { src: "https://swiperjs.com/demos/images/nature-1.jpg" },
-    { src: "https://swiperjs.com/demos/images/nature-1.jpg" },
-    { src: "https://swiperjs.com/demos/images/nature-1.jpg" },
-    { src: "https://swiperjs.com/demos/images/nature-1.jpg" },
-    { src: "https://swiperjs.com/demos/images/nature-1.jpg" }
-]
+import axios from "axios"
 
 export default function CenterAsside() {
-    const [thumbsSwiper, setThumbsSwiper] = useState(null);
+    const [thumbsSwiper, setThumbsSwiper] = useState(null)
+    const [state, setState] = useState<any>(null)
+
+    useEffect(() => {
+        axios.get(`https://datkaao.pythonanywhere.com/api/v1/news/?offset=1`)
+            .then(res => {
+                setState(res?.data)
+            })
+    }, [])
 
     return (
-        <div className="flex flex-col gap-[20px] max-w-[57%] w-[100%] swiper_parent">
-            <div className="bg-white grid grid-cols-6 grid-rows-[360px_240px_160px] p-[20px] gap-[5px] [&>div:first-child>div:last-child>p]:text-[24px] [&>div:first-child>div:last-child>p]:leading-[25px] [&>div>div:last-child>p]:text-[16px] [&>div>div:last-child>p]:leading-[17px]">
+        <div className="flex flex-col gap-[20px] max-w-[57%] 1024px:max-w-[67%] 800px:max-w-[100%] 800px:row-[1_/_1] 800px:col-[1_/_3] w-[100%] swiper_parent">
+            <div className="bg-white grid grid-cols-6 grid_sistem grid-rows-[360px_240px_160px] 600px:[&>div]:h-[180px] 600px:grid-rows-none 600px:grid-cols-2 p-[20px] gap-[5px] [&>div:first-child>div:last-child>p]:text-[24px] 600px:[&>div:first-child>div:last-child>p]:text-[16px] 600px:[&>div:first-child>div:last-child>p]:leading-[20px] [&>div:first-child>div:last-child>p]:leading-[25px] [&>div>div:last-child>p]:text-[16px] [&>div>div:last-child>p]:leading-[20px]">
                 {
-                    data.map((item: any, index: number) => (
+                    !!state
+                    &&
+                    state?.results.map((item: any, index: number) => (
                         <BlockGrid
                             key={index}
-                            img={item.img}
-                            count={item.count}
-                            className={item.className}
-                            text={item.text}
+                            img={item.images[0].image}
+                            count={0}
+                            text={item.name}
                         />
                     ))
                 }
@@ -84,12 +45,14 @@ export default function CenterAsside() {
                     }}
                     thumbs={{ swiper: thumbsSwiper }}
                     modules={[FreeMode, Navigation, Thumbs]}
-                    className="mySwiper2 h-[500px] group duration-200"
+                    className="mySwiper2 h-[500px] 600px:h-[380px] 425px:h-[270px] group duration-200"
                 >
                     {
-                        SwiperData.map((item: any, index: number) => (
+                        !!state
+                        &&
+                        state?.results.map((item: any, index: number) => (
                             <SwiperSlide key={index}>
-                                <img src={item.src} className="w-[100%] h-[100%]" />
+                                <img src={item.images[0].image} className="w-[100%] h-[100%] object-cover" />
                             </SwiperSlide>
                         ))
                     }
@@ -112,12 +75,14 @@ export default function CenterAsside() {
                     freeMode={true}
                     watchSlidesProgress={true}
                     modules={[FreeMode, Navigation, Thumbs]}
-                    className="mySwiper3 h-[100px]"
+                    className="mySwiper3 h-[100px] 600px:h-[80px]"
                 >
                     {
-                        SwiperData.map((item: any, index: number) => (
+                        !!state
+                        &&
+                        state?.results.map((item: any, index: number) => (
                             <SwiperSlide key={index}>
-                                <img src={item.src} className="w-[100%] h-[100%]" />
+                                <img src={item.images[0].image} className="w-[100%] h-[100%] object-cover" />
                             </SwiperSlide>
                         ))
                     }
@@ -127,9 +92,9 @@ export default function CenterAsside() {
     )
 }
 
-function BlockGrid({ count, text, img, className }: { count: number, text: string, img: string, className: string }) {
+function BlockGrid({ count, text, img }: { count: number, text: string, img: string }) {
     return (
-        <div className={`relative flex flex-col group before:content-[''] before:absolute before:top-0 before:left-0 before:w-[100%] before:h-[100%] before:bg-[rgba(0,_0,_0,_0.3)] before:z-[2] ${!!className ? className : ""}`}>
+        <div className={`relative flex flex-col group before:content-[''] before:absolute before:top-0 before:left-0 before:w-[100%] before:h-[100%] before:bg-[rgba(0,_0,_0,_0.3)] before:z-[2]`}>
             <div className="text-white bg-[#111] text-[10px] font-roboto relative z-[2] w-[max-content] h-[16px] px-[5px] leading-[16px] font-[500] m-[10px] group-hover:bg-base_blue duration-200">Новости</div>
             <img src={img} className="w-[100%] h-[100%] object-cover absolute top-0 left-0 z-[1]" />
             <div className="mt-auto px-[20px] py-[16px]">

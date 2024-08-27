@@ -1,101 +1,32 @@
 
+import axios from "axios"
 import { Link } from "react-router-dom"
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import { useEffect, useState } from "react";
 
-const data = [
-    {
-        img: "/assets/img/swiper_image.jpg",
-        title: "Стимгранттын жардамы менен эки айылга жети балдар аянтчасы курулган",
-        view: 527,
-        count: 0,
-        newsLink: "/",
-        titleLink: "/"
-    },
-    {
-        img: "/assets/img/swiper_image.jpg",
-        title: "Стимгранттын жардамы менен эки айылга жети балдар аянтчасы курулган",
-        view: 527,
-        count: 0,
-        newsLink: "/",
-        titleLink: "/"
-    },
-    {
-        img: "/assets/img/swiper_image.jpg",
-        title: "Стимгранттын жардамы менен эки айылга жети балдар аянтчасы курулган",
-        view: 527,
-        count: 0,
-        newsLink: "/",
-        titleLink: "/"
-    },
-    {
-        img: "/assets/img/swiper_image.jpg",
-        title: "Стимгранттын жардамы менен эки айылга жети балдар аянтчасы курулган",
-        view: 527,
-        count: 0,
-        newsLink: "/",
-        titleLink: "/"
-    }
-]
-
-const linksBtn = [
-    {
-        href: "/",
-        text: "Библиотека",
-        src: "/assets/svg/file.svg"
-    },
-    {
-        href: "/",
-        text: "Библиотека",
-        src: "/assets/svg/file.svg"
-    },
-    {
-        href: "/",
-        text: "Библиотека",
-        src: "/assets/svg/file.svg"
-    },
-    {
-        href: "/",
-        text: "Библиотека",
-        src: "/assets/svg/file.svg"
-    },
-    {
-        href: "/",
-        text: "Библиотека",
-        src: "/assets/svg/file.svg"
-    },
-    {
-        href: "/",
-        text: "Библиотека",
-        src: "/assets/svg/file.svg"
-    },
-    {
-        href: "/",
-        text: "Библиотека",
-        src: "/assets/svg/file.svg"
-    },
-    {
-        href: "/",
-        text: "Библиотека",
-        src: "/assets/svg/file.svg"
-    },
-    {
-        href: "/",
-        text: "Библиотека",
-        src: "/assets/svg/file.svg"
-    },
+const linksBtn: any = [
+    { href: "/", src: "/assets/svg/file.svg" },
+    { href: "/", src: "/assets/svg/file.svg" },
+    { href: "/", src: "/assets/svg/file.svg" },
+    { href: "/", src: "/assets/svg/file.svg" },
+    { href: "/", src: "/assets/svg/file.svg" },
+    { href: "/", src: "/assets/svg/file.svg" },
+    { href: "/", src: "/assets/svg/file.svg" },
+    { href: "/", src: "/assets/svg/file.svg" },
+    { href: "/", src: "/assets/svg/file.svg" }
 ]
 
 function SwiperBlock({ img, title, view, count, newsLink, titleLink }: { img: string, title: string, view: number, count: number, newsLink: string, titleLink: string }) {
     return (
         <div className="relative h-[100%] before:duration-200 before:content-[''] before:absolute before:w-[100%] before:h-[90%] before:top-[0] before:left-[0] duration-200 hover:before:bg-[rgba(0,_0,_0,_0.3)] before:z-[1]">
-            <img src={img} className="w-[100%] h-[90%] object-cover" />
-            <div className="absolute bottom-0 left-[50%] translate-x-[-50%] w-[95%] z-[2] flex flex-col bg-white px-[20px] py-[15px]">
-                <Link to={newsLink} className="bg-base_blue text-white font-[500] text-[10px] px-[5px] py-[1px] mb-[5px] w-[max-content]">Новости</Link>
-                <Link to={titleLink} className="text-black text-[18px] font-[700] mb-[5px] hover:text-base_blue">{title}</Link>
-                <div className="flex items-center gap-[15px]">
+            <img src={img} className="w-[100%] h-[90%] object-cover 600px:h-[203px]" />
+            <div className="absolute 425:static 600px:translate-x-0 600px:w-[100%] bottom-0 left-[50%] 600px:left-[0] translate-x-[-50%] w-[95%] z-[2] flex flex-col bg-white px-[20px] py-[15px]">
+                <Link to={newsLink} className="bg-base_blue text-white font-[500] text-[10px] px-[5px] py-[1px] mb-[5px] w-[max-content] 600px:hidden">Новости</Link>
+                <Link to={titleLink} className="text-black text-[18px] 600px:text-[17px] font-[700] 425:text-[14px] leading-[21px] mb-[5px] hover:text-base_blue w-[92%] 600px:w-[86%]">{title}</Link>
+                <div className="flex items-center gap-[15px] 600px:hidden">
                     <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none">
                         <path d="M12 17V12L14.5 10.5M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
@@ -129,28 +60,45 @@ function AssideBtns({ href, text, src }: { href: string, text: string, src: stri
 }
 
 export default function Front() {
+    const [state, setState] = useState<any>(null)
+    const [tags, setTags] = useState<any>(null)
+
+    useEffect(() => {
+        axios.get(`https://datkaao.pythonanywhere.com/api/v1/news/?offset=1`)
+            .then(res => {
+                setState(res)
+            })
+
+        axios.get(`https://datkaao.pythonanywhere.com/api/v1/tags/`)
+            .then(res => {
+                setTags(res)
+            })
+    }, [])
+
     return (
         <div className="px-4 py-[20px]">
-            <div className="flex justify-between">
-                <div className="relative w-[100%] max-w-[77%]">
+            <div className="flex justify-between 800px:flex-col gap-[20px]">
+                <div className="relative w-[100%] max-w-[77%] 800px:max-w-[100%]">
                     <Swiper
                         navigation={{
                             nextEl: ".next-slide-button",
                             prevEl: ".prev-slide-button"
                         }}
                         modules={[Navigation]}
-                        className="mySwiper h-[600px] group duration-200"
+                        className="mySwiper h-[600px] 600px:h-[290px] group duration-200"
                     >
                         {
-                            data.map((item: any, index: number) => (
+                            !!state
+                            &&
+                            state?.data?.results.map((item: any, index: number) => (
                                 <SwiperSlide key={index}>
                                     <SwiperBlock
-                                        img={item.img}
-                                        title={item.title}
-                                        view={item.view}
-                                        count={item.count}
-                                        newsLink={item.newsLink}
-                                        titleLink={item.titleLink}
+                                        img={item.images[0].image}
+                                        title={item.name}
+                                        view={item.views}
+                                        count={0}
+                                        newsLink="/"
+                                        titleLink="/"
                                     />
                                 </SwiperSlide>
                             ))
@@ -169,10 +117,12 @@ export default function Front() {
                         </div>
                     </Swiper>
                 </div>
-                <div className="max-w-[300px] w-[100%] min-w-[300px] flex flex-col gap-[5px]">
+                <div className="max-w-[300px] 800px:max-w-[100%] w-[100%] flex flex-col gap-[5px]">
                     {
-                        linksBtn.map((item: any, index: number) => (
-                            <AssideBtns key={index} href={item.href} text={item.text} src={item.src} />
+                        !!tags
+                        &&
+                        tags?.data.map((item: any, index: number) => (
+                            <AssideBtns key={index} href={linksBtn[index].href} text={item.name} src={linksBtn[index].src} />
                         ))
                     }
                 </div>

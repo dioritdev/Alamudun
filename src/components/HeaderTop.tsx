@@ -11,7 +11,7 @@ const data = [
 
 export default function HeaderTop() {
     return (
-        <div className="bg-base_blue py-2 flex items-center justify-end gap-2.5 px-12">
+        <div className="bg-base_blue py-2 600px:py-2.5 flex items-center justify-end 600px:justify-center gap-2.5 px-12">
             {
                 data.map((item: any, index: number) => (
                     <Link key={index} to={item.href} className="w-5 h-5 block">

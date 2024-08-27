@@ -30,7 +30,7 @@ export default function index() {
                     <Route path="dokumenty" element={<Documenty />} />
                     <Route path="onlajn-obrashhenie" element={<Online />} />
                     <Route path="kontakty" element={<Kontakts />} />
-                    <Route path="news" element={<News />} />
+                    <Route path="news/page/:id" element={<News />} />
 
                     <Route path="postanovleniya-2019" element={<Res2019 />} />
                     <Route path="postanovleniya-2018" element={<Res2018 />} />

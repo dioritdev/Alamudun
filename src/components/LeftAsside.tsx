@@ -1,98 +1,97 @@
 
+import axios from "axios"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 
-const data = [
-    {
-        href: "/",
-        src: "/assets/img/swiper_image.jpg",
-        text: "Аламудун Айылдык аймагында жаны балдар бакчасы ачылды",
-        count: 3,
-    },
-    {
-        href: "/",
-        src: "/assets/img/swiper_image.jpg",
-        text: "Урматтуу Мекендештер! Биометрикалык маалыматтарды тактоо жүрүп жатат",
-        count: 3,
-    },
-    {
-        href: "/",
-        src: "/assets/img/swiper_image.jpg",
-        text: "Аламүдүн айыл аймагында ыктыярдуу элдик кошуундар жөнүндө Жобо. ПОЛОЖЕНИЕ о добровольных народных дружинах Аламудунского айылного аймака.",
-        count: 3,
-    },
-    {
-        href: "/",
-        src: "/assets/img/swiper_image.jpg",
-        text: "Положения о квартальных и домовых комитетов ,предоставлении материальной помощи гражданам,организации сбора и вывоза твердых бытовых отходов и мусора на территории...",
-        count: 3,
-    },
-    {
-        href: "/",
-        src: "/assets/img/swiper_image.jpg",
-        text: "В Аламудунском айылном аймаке измена схема передвижения автобусов.",
-        count: 3,
-    },
-]
+export default function LeftAsside({ showArchive }: { showArchive?: boolean }) {
+    const [state, setState] = useState<any>(null)
 
-export default function LeftAsside() {
+    useEffect(() => {
+        axios.get(`https://datkaao.pythonanywhere.com/api/v1/news/?offset=1`)
+            .then(res => {
+                setState(res?.data)
+            })
+    }, [])
+
+    const handle__End = () => {
+        if (!!state?.next) {
+            axios.get(state?.next)
+                .then(res => {
+                    setState((prev: any) => {
+                        return {
+                            ...prev,
+                            next: res?.data?.next,
+                            results: [...prev?.results, ...res?.data?.results]
+                        }
+                    })
+                })
+        }
+    }
+
     return (
-        <div className="w-[100%] max-w-[300px] flex flex-col gap-[20px]">
+        <div className="w-[100%] max-w-[300px] min-w-[250px] flex flex-col gap-[20px] 1024px:hidden 600px:row-[2_/_2] 600px:col-[1_/_3] 800px:flex 800px:max-w-[100%]">
             <BlockStyleds title="Последние новости">
                 {
-                    data.map((item: any, index: number) => (
-                        <AssideBlock img={item.src} title={item.text} count={item.count} titleLink={item.href} key={index} />
+                    !!state
+                    &&
+                    state?.results.map((item: any, index: number) => (
+                        <AssideBlock img={item.images[0].image} title={item.name} count={0} titleLink="/" key={index} />
                     ))
                 }
-                <button className="flex items-center justify-center gap-[5px] w-full bg-base_blue h-[28px] text-[13px] font-[700] font-roboto text-white">
+                <button className="flex items-center justify-center gap-[5px] w-full bg-base_blue h-[28px] text-[13px] font-[700] font-roboto text-white" onClick={() => handle__End()}>
                     Посмотреть еще
                     <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none">
                         <path d="M21 12C21 16.9706 16.9706 21 12 21C9.69494 21 7.59227 20.1334 6 18.7083L3 16M3 12C3 7.02944 7.02944 3 12 3C14.3051 3 16.4077 3.86656 18 5.29168L21 8M3 21V16M3 16H8M21 3V8M21 8H16" stroke="#FFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </button>
             </BlockStyleds>
-            <BlockStyleds title="Архивы">
-                <div className="flex flex-col gap-[11px] mt-[20px]">
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                    <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                </div>
-            </BlockStyleds>
+            {
+                !!showArchive
+                &&
+                <BlockStyleds title="Архивы">
+                    <div className="flex flex-col gap-[11px] mt-[20px]">
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                    </div>
+                </BlockStyleds>
+            }
         </div>
     )
 }
@@ -111,7 +110,7 @@ export function BlockStyleds({ children, title }: { children: any, title: any })
 export function AssideBlock({ img, title, count, titleLink, column }: { img: string, title: any, count: number, titleLink: string, column?: boolean }) {
     return (
         <div className={`flex items-start gap-[15px] pb-[20px] border-b border-solid border-b-[#ececec] ${!!column ? "flex-col" : "mb-[20px]"}`}>
-            <img src={img} className={`object-cover ${!!column ? "w-[100%] h-[170px]" : "w-[108px]"}`} />
+            <img src={img} className={`object-cover ${!!column ? "w-[100%] h-[170px]" : "w-[100%] max-w-[108px] min-w-[90px] h-[72px]"}`} />
             <div className="flex flex-col gap-[6px]">
                 <Link to={titleLink} className="text-[13px] font-roboto font-[600] leading-[18px] block duration-200 hover:text-base_blue">{title}</Link>
                 <div className="flex items-center gap-[15px]">
