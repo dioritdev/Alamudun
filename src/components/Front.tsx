@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux"
 
 const linksBtn: any = [
     { href: "/", src: "/assets/svg/file.svg" },
@@ -18,6 +19,73 @@ const linksBtn: any = [
     { href: "/", src: "/assets/svg/file.svg" },
     { href: "/", src: "/assets/svg/file.svg" }
 ]
+
+export default function Front() {
+    const [tags, setTags] = useState<any>(null)
+    const news = useSelector((state: any) => state.news.news)
+
+    useEffect(() => {
+        axios.get(`https://datkaao.pythonanywhere.com/api/v1/tags/`)
+            .then(res => {
+                setTags(res)
+            })
+    }, [])
+
+    return (
+        <div className="px-4 py-[20px]">
+            <div className="flex justify-between 800px:flex-col gap-[20px]">
+                <div className="relative w-[100%] max-w-[77%] 800px:max-w-[100%]">
+                    <Swiper
+                        navigation={{
+                            nextEl: ".next-slide-button",
+                            prevEl: ".prev-slide-button"
+                        }}
+                        modules={[Navigation]}
+                        className="mySwiper h-[600px] 600px:h-[290px] group duration-200"
+                    >
+                        {
+                            !!news.data
+                            &&
+                            news?.data?.results.map((item: any, index: number) => (
+                                <SwiperSlide key={index}>
+                                    <SwiperBlock
+                                        img={item.images[0].image}
+                                        title={item.name}
+                                        view={item.views}
+                                        count={0}
+                                        newsLink="/"
+                                        titleLink="/"
+                                    />
+                                </SwiperSlide>
+                            ))
+                        }
+                        <div>
+                            <button className="prev-slide-button slider_btn left-[3%] group-hover:opacity-[100%]">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="15px" height="15px" viewBox="0 0 32 32" version="1.1">
+                                    <path d="M23.505 0c0.271 0 0.549 0.107 0.757 0.316 0.417 0.417 0.417 1.098 0 1.515l-14.258 14.264 14.050 14.050c0.417 0.417 0.417 1.098 0 1.515s-1.098 0.417-1.515 0l-14.807-14.807c-0.417-0.417-0.417-1.098 0-1.515l15.015-15.022c0.208-0.208 0.486-0.316 0.757-0.316z" fill="#FFFF" />
+                                </svg>
+                            </button>
+                            <button className="next-slide-button slider_btn right-[3%] group-hover:opacity-[100%]">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="15px" height="15px" viewBox="0 0 32 32">
+                                    <path d="M8.489 31.975c-0.271 0-0.549-0.107-0.757-0.316-0.417-0.417-0.417-1.098 0-1.515l14.258-14.264-14.050-14.050c-0.417-0.417-0.417-1.098 0-1.515s1.098-0.417 1.515 0l14.807 14.807c0.417 0.417 0.417 1.098 0 1.515l-15.015 15.022c-0.208 0.208-0.486 0.316-0.757 0.316z" fill="#FFFF" />
+                                </svg>
+                            </button>
+                        </div>
+                    </Swiper>
+                </div>
+                <div className="max-w-[300px] 800px:max-w-[100%] w-[100%] flex flex-col gap-[5px]">
+                    {
+                        !!tags
+                        &&
+                        tags?.data.map((item: any, index: number) => (
+                            <AssideBtns key={index} href={linksBtn[index].href} text={item.name} src={linksBtn[index].src} />
+                        ))
+                    }
+                </div>
+            </div>
+        </div>
+    )
+}
 
 function SwiperBlock({ img, title, view, count, newsLink, titleLink }: { img: string, title: string, view: number, count: number, newsLink: string, titleLink: string }) {
     return (
@@ -56,77 +124,5 @@ function AssideBtns({ href, text, src }: { href: string, text: string, src: stri
             <img src={src} className="w-[18px] h-[18px] object-contain" />
             {text}
         </Link>
-    )
-}
-
-export default function Front() {
-    const [state, setState] = useState<any>(null)
-    const [tags, setTags] = useState<any>(null)
-
-    useEffect(() => {
-        axios.get(`https://datkaao.pythonanywhere.com/api/v1/news/?offset=1`)
-            .then(res => {
-                setState(res)
-            })
-
-        axios.get(`https://datkaao.pythonanywhere.com/api/v1/tags/`)
-            .then(res => {
-                setTags(res)
-            })
-    }, [])
-
-    return (
-        <div className="px-4 py-[20px]">
-            <div className="flex justify-between 800px:flex-col gap-[20px]">
-                <div className="relative w-[100%] max-w-[77%] 800px:max-w-[100%]">
-                    <Swiper
-                        navigation={{
-                            nextEl: ".next-slide-button",
-                            prevEl: ".prev-slide-button"
-                        }}
-                        modules={[Navigation]}
-                        className="mySwiper h-[600px] 600px:h-[290px] group duration-200"
-                    >
-                        {
-                            !!state
-                            &&
-                            state?.data?.results.map((item: any, index: number) => (
-                                <SwiperSlide key={index}>
-                                    <SwiperBlock
-                                        img={item.images[0].image}
-                                        title={item.name}
-                                        view={item.views}
-                                        count={0}
-                                        newsLink="/"
-                                        titleLink="/"
-                                    />
-                                </SwiperSlide>
-                            ))
-                        }
-                        <div>
-                            <button className="prev-slide-button slider_btn left-[3%] group-hover:opacity-[100%]">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="15px" height="15px" viewBox="0 0 32 32" version="1.1">
-                                    <path d="M23.505 0c0.271 0 0.549 0.107 0.757 0.316 0.417 0.417 0.417 1.098 0 1.515l-14.258 14.264 14.050 14.050c0.417 0.417 0.417 1.098 0 1.515s-1.098 0.417-1.515 0l-14.807-14.807c-0.417-0.417-0.417-1.098 0-1.515l15.015-15.022c0.208-0.208 0.486-0.316 0.757-0.316z" fill="#FFFF" />
-                                </svg>
-                            </button>
-                            <button className="next-slide-button slider_btn right-[3%] group-hover:opacity-[100%]">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="15px" height="15px" viewBox="0 0 32 32">
-                                    <path d="M8.489 31.975c-0.271 0-0.549-0.107-0.757-0.316-0.417-0.417-0.417-1.098 0-1.515l14.258-14.264-14.050-14.050c-0.417-0.417-0.417-1.098 0-1.515s1.098-0.417 1.515 0l14.807 14.807c0.417 0.417 0.417 1.098 0 1.515l-15.015 15.022c-0.208 0.208-0.486 0.316-0.757 0.316z" fill="#FFFF" />
-                                </svg>
-                            </button>
-                        </div>
-                    </Swiper>
-                </div>
-                <div className="max-w-[300px] 800px:max-w-[100%] w-[100%] flex flex-col gap-[5px]">
-                    {
-                        !!tags
-                        &&
-                        tags?.data.map((item: any, index: number) => (
-                            <AssideBtns key={index} href={linksBtn[index].href} text={item.name} src={linksBtn[index].src} />
-                        ))
-                    }
-                </div>
-            </div>
-        </div>
     )
 }

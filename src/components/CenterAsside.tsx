@@ -5,28 +5,21 @@ import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { BlockStyleds } from './LeftAsside';
-import axios from "axios"
+import { useSelector } from "react-redux"
 
 export default function CenterAsside() {
     const [thumbsSwiper, setThumbsSwiper] = useState(null)
-    const [state, setState] = useState<any>(null)
-
-    useEffect(() => {
-        axios.get(`https://datkaao.pythonanywhere.com/api/v1/news/?offset=1`)
-            .then(res => {
-                setState(res?.data)
-            })
-    }, [])
+    const news = useSelector((state: any) => state.news.news)
 
     return (
         <div className="flex flex-col gap-[20px] max-w-[57%] 1024px:max-w-[67%] 800px:max-w-[100%] 800px:row-[1_/_1] 800px:col-[1_/_3] w-[100%] swiper_parent">
             <div className="bg-white grid grid-cols-6 grid_sistem grid-rows-[360px_240px_160px] 600px:[&>div]:h-[180px] 600px:grid-rows-none 600px:grid-cols-2 p-[20px] gap-[5px] [&>div:first-child>div:last-child>p]:text-[24px] 600px:[&>div:first-child>div:last-child>p]:text-[16px] 600px:[&>div:first-child>div:last-child>p]:leading-[20px] [&>div:first-child>div:last-child>p]:leading-[25px] [&>div>div:last-child>p]:text-[16px] [&>div>div:last-child>p]:leading-[20px]">
                 {
-                    !!state
+                    !!news.data
                     &&
-                    state?.results.map((item: any, index: number) => (
+                    news.data?.results.map((item: any, index: number) => (
                         <BlockGrid
                             key={index}
                             img={item.images[0].image}
@@ -48,9 +41,9 @@ export default function CenterAsside() {
                     className="mySwiper2 h-[500px] 600px:h-[380px] 425px:h-[270px] group duration-200"
                 >
                     {
-                        !!state
+                        !!news.data
                         &&
-                        state?.results.map((item: any, index: number) => (
+                        news.data?.results.map((item: any, index: number) => (
                             <SwiperSlide key={index}>
                                 <img src={item.images[0].image} className="w-[100%] h-[100%] object-cover" />
                             </SwiperSlide>
@@ -78,9 +71,9 @@ export default function CenterAsside() {
                     className="mySwiper3 h-[100px] 600px:h-[80px]"
                 >
                     {
-                        !!state
+                        !!news.data
                         &&
-                        state?.results.map((item: any, index: number) => (
+                        news.data?.results.map((item: any, index: number) => (
                             <SwiperSlide key={index}>
                                 <img src={item.images[0].image} className="w-[100%] h-[100%] object-cover" />
                             </SwiperSlide>

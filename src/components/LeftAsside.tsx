@@ -2,16 +2,15 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import { useSelector } from "react-redux"
 
 export default function LeftAsside({ showArchive }: { showArchive?: boolean }) {
     const [state, setState] = useState<any>(null)
+    const news = useSelector((state: any) => state.news.news)
 
     useEffect(() => {
-        axios.get(`https://datkaao.pythonanywhere.com/api/v1/news/?offset=1`)
-            .then(res => {
-                setState(res?.data)
-            })
-    }, [])
+        setState(news.data)
+    }, [news])
 
     const handle__End = () => {
         if (!!state?.next) {

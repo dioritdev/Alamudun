@@ -1,17 +1,9 @@
 
-import axios from "axios"
-import { useEffect, useState } from "react";
 import { AssideBlock, BlockStyleds } from "./LeftAsside";
+import { useSelector } from "react-redux"
 
 export default function RightAsside() {
-    const [state, setState] = useState<any>(null)
-
-    useEffect(() => {
-        axios.get(`https://datkaao.pythonanywhere.com/api/v1/news/?offset=1`)
-            .then(res => {
-                setState(res?.data)
-            })
-    }, [])
+    const news = useSelector((state: any) => state.news.news)
 
     return (
         <div className="w-[100%] max-w-[300px] min-w-[250px] flex flex-col 800px:max-w-[100%]">
@@ -23,9 +15,9 @@ export default function RightAsside() {
             </div>
             <BlockStyleds title="Недавние посты">
                 {
-                    !!state
+                    !!news.data
                     &&
-                    state?.results.filter((_: any, index: number) => index <= 3).map((item: any, index: number) => (
+                    news?.data?.results.filter((_: any, index: number) => index <= 3).map((item: any, index: number) => (
                         <AssideBlock
                             key={index}
                             img={item.images[0].image}

@@ -1,29 +1,22 @@
 
-import axios from "axios"
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AssideBlock } from "./LeftAsside";
+import { useSelector } from "react-redux"
 
 export default function Footer() {
-    const [state, setState] = useState<any>(null)
     const [data, setData] = useState<any>(null)
+    const news = useSelector((state: any) => state.news.news)
 
     useEffect(() => {
-        axios.get(`https://datkaao.pythonanywhere.com/api/v1/news/?offset=1`)
-            .then(res => {
-                setState(res?.data?.results)
-            })
-    }, [])
-
-    useEffect(() => {
-        if (!!state) {
+        if (!!news.data) {
             setData([
-                { title: "Недавние новости", children: [state[0], state[1], state[2]] },
-                { title: "Недавние новости", children: [state[3], state[4], state[5]] },
-                { title: "Недавние новости", children: [state[0], state[1], state[2]] },
+                { title: "Недавние новости", children: [news.data?.results[0], news.data?.results[1], news.data?.results[2]] },
+                { title: "Недавние новости", children: [news.data?.results[3], news.data?.results[4], news.data?.results[5]] },
+                { title: "Недавние новости", children: [news.data?.results[0], news.data?.results[1], news.data?.results[2]] },
             ])
         }
-    }, [state])
+    }, [news])
 
     return (
         <footer>

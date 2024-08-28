@@ -1,21 +1,20 @@
 
 import LeftAsside from "../components/LeftAsside";
+import AssideRight from "../components/AssideRight";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import AssideRight from "../components/AssideRight";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux"
+import { FetchNewsParams } from "../redux/slice/NewsSlice";
 
 export default function News() {
     const params: any = useParams()
-    const [state, setState] = useState<any>(null)
     const [count, setCount] = useState(0)
+    const dispatch = useDispatch()
+    const newsParams = useSelector((state: any) => state.news.paramsNews)
 
     useEffect(() => {
-        axios.get(`https://datkaao.pythonanywhere.com/api/v1/news/?offset=${params.id}`)
-            .then(res => {
-                setState(res)
-                setCount(Math.ceil(res?.data?.count / 6))
-            })
+        dispatch(FetchNewsParams({ id: params.id }) as any)
+            .then((res: any) => setCount(Math.ceil(res.payload?.count / 6)))
     }, [params])
 
     return (
@@ -30,9 +29,9 @@ export default function News() {
                     <Link to="/news/page/1" className="hover:text-base_blue duration-200">Новости</Link>
                 </div>
                 {
-                    !!state
+                    !!newsParams.data
                     &&
-                    state?.data?.results.map((item: any, index: number) => {
+                    newsParams?.data?.results.map((item: any, index: number) => {
                         if (index == 0) {
                             return (
                                 <div className="mt-[20px]">
@@ -94,7 +93,7 @@ export default function News() {
                 }
                 <div className="flex gap-[10px] mt-[20px]">
                     {
-                        !!state?.data?.previous
+                        !!newsParams?.data?.previous
                         &&
                         <Link to={`/news/page/${+params.id - 1}`} className="w-[32px] h-[32px] duration-200 flex items-center group justify-center border border-solid border-[#dedede] hover:bg-base_blue hover:border-base_blue">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="15px" height="15px" viewBox="0 0 32 32" version="1.1">
@@ -104,7 +103,7 @@ export default function News() {
                     }
                     <Pagination count={count} params={params} />
                     {
-                        !!state?.data?.next
+                        !!newsParams?.data?.next
                         &&
                         <Link to={`/news/page/${+params.id + 1}`} className="w-[32px] h-[32px] duration-200 flex items-center group justify-center border border-solid border-[#dedede] hover:bg-base_blue hover:border-base_blue">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="15px" height="15px" viewBox="0 0 32 32">
