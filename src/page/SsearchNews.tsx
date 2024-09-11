@@ -1,18 +1,19 @@
 
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux"
-import { FetchNewsParams } from "../redux/slice/NewsSlice";
+import API from "../axios";
 
-export default function News() {
+export default function SearchNews() {
     const params: any = useParams()
     const [count, setCount] = useState(0)
-    const dispatch = useDispatch()
-    const newsParams = useSelector((state: any) => state.news.paramsNews)
+    const [state, setState] = useState<any>(null)
 
     useEffect(() => {
-        dispatch(FetchNewsParams({ id: params.id }) as any)
-            .then((res: any) => setCount(Math.ceil(res.payload?.count / 6)))
+        API.get(`https://aodatka.pythonanywhere.com/api/v1/news/?category=&user=&location=${params.s}&rating=`)
+            .then((res: any) => {
+                setState(res.data)
+                setCount(Math.ceil(res.payload?.count / 6))
+            })
     }, [params])
 
     return (
@@ -25,14 +26,14 @@ export default function News() {
                 <Link to="/news/page/1" className="hover:text-base_blue duration-200">Новости</Link>
             </div>
             {
-                !!newsParams.data
+                !!state?.results
                 &&
-                newsParams?.data?.results.map((item: any, index: number) => {
+                state?.results.map((item: any, index: number) => {
                     if (index == 0) {
                         return (
                             <div className="mt-[20px]">
                                 <div className="bg-black text-white font-[500] text-[10px] px-[5px] py-[1px] w-[max-content] mb-[10px]">Новости</div>
-                                <Link to={`/news/${item.id}`} className="font-roboto text-[20px] leading-[22px] font-[600] block mb-[8px] duration-200 hover:text-base_blue">{item.name}</Link>
+                                <Link to={`/news/${item.id}`} className="font-roboto text-[20px] leading-[22px] font-[600] mb-[8px]">{item.name}</Link>
                                 <div className="flex items-center gap-[15px]">
                                     <p className="text-[#999] text-[12px] font-roboto font-[400] leading-[16px]">by {item.user.email}</p>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none">
@@ -60,7 +61,7 @@ export default function News() {
                                 <img src={item.images[0].image} className="w-[100%] max-w-[270px] 1024px:max-w-[100%] min-w-[270px] h-[180px] 1024px:h-[250px] object-cover" />
                                 <div>
                                     <div className="bg-black text-white font-[500] text-[10px] px-[5px] py-[1px] w-[max-content] mb-[10px]">Новости</div>
-                                    <Link to={`/news/${item.id}`} className="text-[#111111] font-roboto text-[20px] leading-[23px] font-[600] block mb-[5px] duration-200 hover:text-base_blue">{item.name}</Link>
+                                    <p className="text-[#111111] font-roboto text-[20px] leading-[23px] font-[600] mb-[5px]">{item.name}</p>
                                     <div className="flex items-center gap-[15px]">
                                         <p className="text-[#999] text-[12px] font-roboto font-[400] leading-[16px]">by {item.user.email}</p>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none">
@@ -89,7 +90,7 @@ export default function News() {
             }
             <div className="flex gap-[10px] mt-[20px]">
                 {
-                    !!newsParams?.data?.previous
+                    !!state?.previous
                     &&
                     <Link to={`/news/page/${+params.id - 1}`} className="w-[32px] h-[32px] duration-200 flex items-center group justify-center border border-solid border-[#dedede] hover:bg-base_blue hover:border-base_blue">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="15px" height="15px" viewBox="0 0 32 32" version="1.1">
@@ -99,7 +100,7 @@ export default function News() {
                 }
                 <Pagination count={count} params={params} />
                 {
-                    !!newsParams?.data?.next
+                    !!state?.next
                     &&
                     <Link to={`/news/page/${+params.id + 1}`} className="w-[32px] h-[32px] duration-200 flex items-center group justify-center border border-solid border-[#dedede] hover:bg-base_blue hover:border-base_blue">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="15px" height="15px" viewBox="0 0 32 32">

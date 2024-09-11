@@ -4,7 +4,7 @@ import LinksNo from "../components/LinksNo";
 export default function Kontakts() {
     return (
         <main className="bg-milk_gray 1024px:flex-col py-[20px] px-4 flex justify-center gap-[20px] relative">
-            <LinksNo title="Контакты" pathTitle="Контакты" />
+            <LinksNo title="Контакты" pathTitle="Контакты" newsId={1} likes={1} />
             <AssideRight />
         </main>
     )
