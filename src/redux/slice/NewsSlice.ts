@@ -50,7 +50,10 @@ const news_slice = createSlice({
             })
             .addCase(FetchNews.fulfilled, (state, action) => {
                 state.news.loading = false
-                state.news.data = action.payload
+                state.news.data = {
+                    ...action.payload,
+                    results: action.payload.results.reverse()
+                }
             })
             .addCase(FetchNews.rejected, state => {
                 state.news.loading = false

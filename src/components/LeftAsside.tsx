@@ -3,14 +3,21 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
+import API from "../axios"
 
 export default function LeftAsside({ showArchive }: { showArchive?: boolean }) {
     const [state, setState] = useState<any>(null)
     const news = useSelector((state: any) => state.news.news)
+    const [archive, setArchive] = useState<any>(null)
 
     useEffect(() => {
         setState(news.data)
     }, [news])
+
+    useEffect(() => {
+        API.get("archives/")
+            .then((res: any) => setArchive(res.data))
+    }, [])
 
     const handle__End = () => {
         if (!!state?.next) {
@@ -34,7 +41,7 @@ export default function LeftAsside({ showArchive }: { showArchive?: boolean }) {
                     !!state
                     &&
                     state?.results.map((item: any, index: number) => (
-                        <AssideBlock img={item.images[0].image} title={item.name} count={0} titleLink="/" key={index} />
+                        <AssideBlock img={item.images[0].image} title={item.name} date={item.created_at.split("-").at(-1).split("T")[0]} count={0} titleLink={`/news/${item.id}`} key={index} />
                     ))
                 }
                 <button className="flex items-center justify-center gap-[5px] w-full bg-base_blue h-[28px] text-[13px] font-[700] font-roboto text-white" onClick={() => handle__End()}>
@@ -49,45 +56,13 @@ export default function LeftAsside({ showArchive }: { showArchive?: boolean }) {
                 &&
                 <BlockStyleds title="Архивы">
                     <div className="flex flex-col gap-[11px] mt-[20px]">
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
-                        <Link to="/" className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">Июль 2024</Link>
+                        {
+                            !!archive
+                            &&
+                            archive.map((item: any, index: number) => (
+                                <p key={index} className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">{item.date}</p>
+                            ))
+                        }
                     </div>
                 </BlockStyleds>
             }
@@ -106,27 +81,30 @@ export function BlockStyleds({ children, title }: { children: any, title: any })
     )
 }
 
-export function AssideBlock({ img, title, count, titleLink, column }: { img: string, title: any, count: number, titleLink: string, column?: boolean }) {
+export function AssideBlock({ img, title, count, titleLink, column, className, user, date }: { img: string, title: any, count: number, titleLink: string, column?: boolean, className?: string, user?: string, date?: string }) {
     return (
-        <div className={`flex items-start gap-[15px] pb-[20px] border-b border-solid border-b-[#ececec] ${!!column ? "flex-col" : "mb-[20px]"}`}>
+        <div className={`flex items-start gap-[15px] pb-[20px] border-b border-solid border-b-[#ececec] ${!!column ? "flex-col" : "mb-[20px]"} ${!!className ? className : ""}`}>
             <img src={img} className={`object-cover ${!!column ? "w-[100%] h-[170px]" : "w-[100%] max-w-[108px] min-w-[90px] h-[72px]"}`} />
             <div className="flex flex-col gap-[6px]">
-                <Link to={titleLink} className="text-[13px] font-roboto font-[600] leading-[18px] block duration-200 hover:text-base_blue">{title}</Link>
+                <Link to={titleLink} className="text-[13px] font-roboto font-[600] limit_the_text leading-[18px] block duration-200 hover:text-base_blue limit_the_text">{title}</Link>
                 <div className="flex items-center gap-[15px]">
                     {
                         column
                         &&
-                        <p className="text-[#999] text-[12px] font-roboto font-[400] leading-[16px]">by adminalamudun</p>
+                        <p className="text-[#999] text-[12px] font-roboto font-[400] leading-[16px]">by {user}</p>
                     }
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none">
-                        <path d="M12 17V12L14.5 10.5M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
                     <div className="flex items-center gap-[5px]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 17V12L14.5 10.5M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <p className="text-[#999] text-[12px] font-roboto font-[400] leading-[17px]">{date}</p>
+                    </div>
+                    {/* <div className="flex items-center gap-[5px]">
                         <svg xmlns="http://www.w3.org/2000/svg" width="13px" height="13px" viewBox="0 0 32 32" fill="none">
                             <path d="M23.875 25C23.875 25 27.937 29 28.937 30C30.547 31.609 31 31 31 30V8C31 7.447 30.553 7 30 7H8C7.447 7 7 7.447 7 8V26C7 26.553 7.447 27 8 27H22M13 15H25M13 19H18M25 4V2C25 1.437 24.604 1 24 1H2C1.447 1 1 1.447 1 2V20C1 20.553 1.447 21 2 21H7" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                         <p className="text-[#999] text-[12px] font-roboto font-[400] leading-[17px]">{count}</p>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

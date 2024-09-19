@@ -5,6 +5,8 @@ import { useSelector } from "react-redux"
 export default function RightAsside() {
     const news = useSelector((state: any) => state.news.news)
 
+    console.log(news?.data?.results);
+
     return (
         <div className="w-[100%] max-w-[300px] min-w-[250px] flex flex-col 800px:max-w-[100%]">
             <div className="w-[100%] bg-[url(/assets/img/email_fon.jpg)] bg-cover bg-center px-[20px] py-[20px]">
@@ -22,9 +24,11 @@ export default function RightAsside() {
                             key={index}
                             img={item.images[0].image}
                             title={item.name}
-                            count={4}
-                            titleLink="/"
+                            count={item.comments?.length}
+                            date={item.created_at.split("-").at(-1).split("T")[0]}
+                            titleLink={`/news/${item.id}`}
                             column={true}
+                            user={item.user.email}
                         />
                     ))
                 }

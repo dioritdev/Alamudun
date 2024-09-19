@@ -1,5 +1,5 @@
 
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { useState } from "react"
 
 const data = [
@@ -10,31 +10,31 @@ const data = [
     },
     {
         href: "/alamudunskij-ao",
-        text: "Аламудунский АО",
+        text: "Датка",
         model: true,
         links: [
             {
-                href: "/",
+                href: "/docs",
                 text: "Айыльный Кенеш"
             },
             {
-                href: "chapter",
+                href: "/chapter",
                 text: "Глава"
             },
             {
-                href: "zhizn-sela",
+                href: "/zhizn-sela",
                 text: "Жизнь села"
             },
             {
-                href: "/",
+                href: "/archive",
                 text: "История"
             },
             {
-                href: "sotsialnoe-razvitie",
+                href: "/sotsialnoe-razvitie",
                 text: "Социальное развитие"
             },
             {
-                href: "statistika",
+                href: "/statistika",
                 text: "Статистика"
             },
         ]
@@ -43,29 +43,6 @@ const data = [
         href: "/administratsiya",
         text: "Администрация",
         model: false
-    },
-    {
-        href: "/postanovleniya",
-        text: "Постановления",
-        model: true,
-        links: [
-            {
-                href: "postanovleniya-2019",
-                text: "Постановления 2019"
-            },
-            {
-                href: "postanovleniya-2018",
-                text: "Постановления 2018"
-            },
-            {
-                href: "postanovleniya-2016",
-                text: "Постановления 2016"
-            },
-            {
-                href: "postanovleniya-2017",
-                text: "Постановления 2017"
-            },
-        ]
     },
     {
         href: "/dokumenty",
@@ -87,12 +64,18 @@ const data = [
         text: "Контакты",
         model: false
     },
+    {
+        href: "/login",
+        text: "Login",
+        model: false
+    }
 ]
 
 export default function Header() {
     const location = useLocation()
     const [state, setState] = useState(false)
     const [burger, setBurger] = useState(false)
+    const locationChange = useNavigate()
 
     const handle_Close = (e: any) => {
         if (!e.target.closest("#closeBurger")) {
@@ -100,9 +83,15 @@ export default function Header() {
         }
     }
 
+    const handle__Search = (e: any) => {
+        if (e.keyCode == 13) {
+            locationChange(`/news/search/${e.target.value}`)
+        }
+    }
+
     return (
-        <header className="conteiner flex items-center justify-between px-4 bg-white sticky top-0 left-0 z-[9] 600px:py-0.5">
-            <button className="w-[54px] h-[54px] 600px:w-[34px] 600px:h-[34px]" onClick={() => setBurger(true)}>
+        <header className="conteiner flex items-center justify-between px-4 bg-white sticky top-0 left-0 z-[9] 600px:py-0.5 gap-[10px] py-[2px]">
+            <button className="w-[54px] h-[54px] 600px:w-[34px] 600px:h-[34px] hidden 1024px:block" onClick={() => setBurger(true)}>
                 <img src="/assets/svg/burger.svg" className="w-[100%] h-[100%] object-contain" />
             </button>
             {
@@ -162,8 +151,9 @@ export default function Header() {
                     </div>
                 </div>
             }
-            <Link to="/" className="w-52 block h-[75px] 600px:h-[48px] 600px:w-[140px]">
-                <img src="/assets/img/logo.png" className="full_width object-contain" />
+            <Link to="/" className="w-52 h-[75px] 600px:h-[48px] 600px:w-[140px] flex items-center 600px:gap-[5px]">
+                <img src="/assets/img/gerb.png" className="full_width object-contain" />
+                <p className="text-base_blue font-[700] leading-[18px] uppercase tracking-[1px] text-[14px] 600px:text-[12px] 600px:leading-[14px]">Датка АйЫльный Аймак</p>
             </Link>
             <div className="flex items-center gap-6 gap-y-[0] flex-wrap 1024px:hidden">
                 {
@@ -180,10 +170,10 @@ export default function Header() {
                             {
                                 item.model
                                 &&
-                                <div className="w-[calc(100%_+_100px)] flex group-hover:translate-y-full bg-white absolute bottom-0 py-2.5 -translate-y-full left-0 flex-col border-t-[3px] border-solid border-t-diff_blue">
+                                <div className="w-[calc(100%_+_200px)] flex group-hover:translate-y-full z-[9] bg-white absolute bottom-0 py-2.5 -translate-y-full left-0 flex-col border-t-[3px] border-solid border-t-diff_blue">
                                     {
                                         item.links.map((itemel: any, index: number) => (
-                                            <Link key={index} to={itemel.href} className="px-4 py-1.5 text-xl font-bold font-roboto text-diff_blue hover:text-white duration-200 hover:bg-base_blue">
+                                            <Link key={index} to={itemel.href} className={`px-4 py-1.5 text-xl font-bold font-roboto text-diff_blue hover:text-white duration-200 hover:bg-base_blue ${location.pathname == itemel.href ? "bg-base_blue text-white" : ""}`}>
                                                 {itemel.text}
                                             </Link>
                                         ))
@@ -204,14 +194,17 @@ export default function Header() {
                     state
                     &&
                     <div className="bg-white border-t-[3px] border-solid border-t-diff_blue p-5 absolute bottom-0 left-0 -translate-x-[92%] translate-y-[150%] 600px:translate-y-[116%] w-[300px]">
-                        <div className="flex items-center gap-2.5 border border-solid border-milk_color p-1 px-2">
-                            <input type="text" placeholder="Поиск..." className="font-normal text-base font-roboto text-black_text placeholder:text-black_text outline-none w-full" />
-                            <button className="w-5 h-5">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24">
-                                    <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="fill-white stroke-black" />
-                                </svg>
-                            </button>
+                        <div>
+                            <div className="flex items-center gap-2.5 border border-solid border-milk_color p-1 px-2">
+                                <input type="text" placeholder="Поиск..." onKeyDown={handle__Search} className="font-normal text-base font-roboto text-black_text placeholder:text-black_text outline-none w-full" />
+                                <button className="w-5 h-5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24">
+                                        <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="fill-white stroke-black" />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
+
                     </div>
                 }
             </div>

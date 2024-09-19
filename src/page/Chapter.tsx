@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import API, { AUTHAPI } from "../axios";
+import API from "../axios";
 import AssideRight from "../components/AssideRight";
 import LinksNo from "../components/LinksNo";
 

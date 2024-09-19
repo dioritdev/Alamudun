@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+*::-webkit-scrollbar {
+    display: none;
+}
+
+* {
+    box-sizing: border-box;
+}
+
 @layer components {
     .full_width {
         @apply w-full h-full
@@ -88,4 +96,12 @@
     .mySwiper3 .swiper-slide-thumb-active {
         border-color: black;
     }
+}
+
+.limit_the_text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }

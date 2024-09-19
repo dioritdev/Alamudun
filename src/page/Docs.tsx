@@ -1,14 +1,14 @@
 
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { AUTHAPI } from "../axios";
+import API, { AUTHAPI } from "../axios";
 import AssideRight from "../components/AssideRight";
 
 export default function Docs() {
     const [state, setState] = useState<any>(null)
 
     useEffect(() => {
-        AUTHAPI.get("documents/")
+        API.get("documents/")
             .then((res: any) => {
                 setState(res.data)
             })

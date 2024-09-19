@@ -20,7 +20,7 @@ export default function Footer() {
 
     return (
         <footer>
-            <div className="px-4 bg-base_blue flex 1024px:flex-wrap gap-[30px] pt-[47px] pb-[26px]">
+            <div className="px-4 bg-base_blue justify-between flex 1024px:flex-wrap gap-[30px] pt-[47px] pb-[26px]">
                 {
                     !!data
                     &&
@@ -33,10 +33,11 @@ export default function Footer() {
                                 item.children.map((el: any, ind: number) => (
                                     <AssideBlock
                                         key={ind}
-                                        img={el.images[0].image}
-                                        title={<span className="text-white">{el.name}</span>}
+                                        img={el?.images[0].image}
+                                        title={<span className="text-white">{el?.name}</span>}
+                                        date={el.created_at.split("-").at(-1).split("T")[0]}
                                         count={0}
-                                        titleLink="/"
+                                        titleLink={`/news/${el.id}`}
                                     />
                                 ))
                             }
@@ -65,7 +66,7 @@ export default function Footer() {
                 </FooterBlock>
             </div>
             <div className="px-4 bg-[#1e73be] h-[58px] py-[11px] text-white text-[12px] font-roboto font-[500] text-center">
-                2020 Аламудунский АО | Все права защищены
+                2020 Датка АО | Все права защищены
             </div>
         </footer>
     )

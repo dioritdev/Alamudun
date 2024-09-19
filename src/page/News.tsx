@@ -32,12 +32,15 @@ export default function News() {
                         return (
                             <div className="mt-[20px]">
                                 <div className="bg-black text-white font-[500] text-[10px] px-[5px] py-[1px] w-[max-content] mb-[10px]">Новости</div>
-                                <Link to={`/news/${item.id}`} className="font-roboto text-[20px] leading-[22px] font-[600] block mb-[8px] duration-200 hover:text-base_blue">{item.name}</Link>
+                                <Link to={`/news/${item.id}`} className="font-roboto text-[20px] leading-[22px] font-[600] block mb-[8px] duration-200 hover:text-base_blue limit_the_text">{item.name}</Link>
                                 <div className="flex items-center gap-[15px]">
                                     <p className="text-[#999] text-[12px] font-roboto font-[400] leading-[16px]">by {item.user.email}</p>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none">
-                                        <path d="M12 17V12L14.5 10.5M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
+                                    <div className="flex items-center gap-[5px]">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none">
+                                            <path d="M12 17V12L14.5 10.5M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                        <p className="text-[#999] text-[12px] font-roboto font-[400]">{item.created_at.split("-").at(-1).split("T")[0]}</p>
+                                    </div>
                                     <div className="flex items-center gap-[5px]">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none">
                                             <path d="M15.0007 12C15.0007 13.6569 13.6576 15 12.0007 15C10.3439 15 9.00073 13.6569 9.00073 12C9.00073 10.3431 10.3439 9 12.0007 9C13.6576 9 15.0007 10.3431 15.0007 12Z" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -45,12 +48,12 @@ export default function News() {
                                         </svg>
                                         <p className="text-[#999] text-[12px] font-roboto font-[400]">{item.views}</p>
                                     </div>
-                                    <div className="flex items-center gap-[5px]">
+                                    {/* <div className="flex items-center gap-[5px]">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="13px" height="13px" viewBox="0 0 32 32" fill="none">
                                             <path d="M23.875 25C23.875 25 27.937 29 28.937 30C30.547 31.609 31 31 31 30V8C31 7.447 30.553 7 30 7H8C7.447 7 7 7.447 7 8V26C7 26.553 7.447 27 8 27H22M13 15H25M13 19H18M25 4V2C25 1.437 24.604 1 24 1H2C1.447 1 1 1.447 1 2V20C1 20.553 1.447 21 2 21H7" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                         </svg>
                                         <p className="text-[#999] text-[12px] font-roboto font-[400]">10</p>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         )
@@ -60,12 +63,15 @@ export default function News() {
                                 <img src={item.images[0].image} className="w-[100%] max-w-[270px] 1024px:max-w-[100%] min-w-[270px] h-[180px] 1024px:h-[250px] object-cover" />
                                 <div>
                                     <div className="bg-black text-white font-[500] text-[10px] px-[5px] py-[1px] w-[max-content] mb-[10px]">Новости</div>
-                                    <Link to={`/news/${item.id}`} className="text-[#111111] font-roboto text-[20px] leading-[23px] font-[600] block mb-[5px] duration-200 hover:text-base_blue">{item.name}</Link>
+                                    <Link to={`/news/${item.id}`} className="text-[#111111] font-roboto text-[20px] leading-[23px] font-[600] block mb-[5px] duration-200 hover:text-base_blue limit_the_text">{item.name}</Link>
                                     <div className="flex items-center gap-[15px]">
                                         <p className="text-[#999] text-[12px] font-roboto font-[400] leading-[16px]">by {item.user.email}</p>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none">
-                                            <path d="M12 17V12L14.5 10.5M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
+                                        <div className="flex items-center gap-[5px]">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none">
+                                                <path d="M12 17V12L14.5 10.5M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                            <p className="text-[#999] text-[12px] font-roboto font-[400]">{item.created_at.split("-").at(-1).split("T")[0]}</p>
+                                        </div>
                                         <div className="flex items-center gap-[5px]">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none">
                                                 <path d="M15.0007 12C15.0007 13.6569 13.6576 15 12.0007 15C10.3439 15 9.00073 13.6569 9.00073 12C9.00073 10.3431 10.3439 9 12.0007 9C13.6576 9 15.0007 10.3431 15.0007 12Z" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -73,14 +79,14 @@ export default function News() {
                                             </svg>
                                             <p className="text-[#999] text-[12px] font-roboto font-[400]">{item.views}</p>
                                         </div>
-                                        <div className="flex items-center gap-[5px]">
+                                        {/* <div className="flex items-center gap-[5px]">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="13px" height="13px" viewBox="0 0 32 32" fill="none">
                                                 <path d="M23.875 25C23.875 25 27.937 29 28.937 30C30.547 31.609 31 31 31 30V8C31 7.447 30.553 7 30 7H8C7.447 7 7 7.447 7 8V26C7 26.553 7.447 27 8 27H22M13 15H25M13 19H18M25 4V2C25 1.437 24.604 1 24 1H2C1.447 1 1 1.447 1 2V20C1 20.553 1.447 21 2 21H7" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                             </svg>
                                             <p className="text-[#999] text-[12px] font-roboto font-[400]">10</p>
-                                        </div>
+                                        </div> */}
                                     </div>
-                                    <p className="text-[#666] font-roboto font-[400] text-[14px] leading-[20px] mt-[10px]">{item.body}</p>
+                                    <p dangerouslySetInnerHTML={{ __html: item.body }} className="text-[#666] font-roboto font-[400] text-[14px] leading-[20px] limit_the_text mt-[10px]" />
                                 </div>
                             </div>
                         )

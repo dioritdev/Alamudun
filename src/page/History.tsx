@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { AUTHAPI } from "../axios"
+import API, { AUTHAPI } from "../axios"
 import AssideRight from "../components/AssideRight"
 import { Share } from "../components/LinksNo"
 
@@ -8,7 +8,7 @@ export default function History() {
     const [state, setState] = useState<any>(null)
 
     useEffect(() => {
-        AUTHAPI.get("archives/")
+        API.get("archives/")
             .then((res: any) => {
                 setState(res.data)
             })
