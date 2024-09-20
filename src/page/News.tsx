@@ -39,7 +39,13 @@ export default function News() {
                                         <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none">
                                             <path d="M12 17V12L14.5 10.5M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                         </svg>
-                                        <p className="text-[#999] text-[12px] font-roboto font-[400]">{item.created_at.split("-").at(-1).split("T")[0]}</p>
+                                        <p className="text-[#999] text-[12px] font-roboto font-[400]">{(() => {
+                                            let a = item?.created_at.split("-").reverse()
+                                            let b = a[0].split("T")[0]
+                                            let d = [a[1], a[2]]
+                                            let c = [b, ...d]
+                                            return c.join(".")
+                                        })()}</p>
                                     </div>
                                     <div className="flex items-center gap-[5px]">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none">
@@ -70,7 +76,13 @@ export default function News() {
                                             <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none">
                                                 <path d="M12 17V12L14.5 10.5M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                             </svg>
-                                            <p className="text-[#999] text-[12px] font-roboto font-[400]">{item.created_at.split("-").at(-1).split("T")[0]}</p>
+                                            <p className="text-[#999] text-[12px] font-roboto font-[400]">{(() => {
+                                                let a = item?.created_at.split("-").reverse()
+                                                let b = a[0].split("T")[0]
+                                                let d = [a[1], a[2]]
+                                                let c = [b, ...d]
+                                                return c.join(".")
+                                            })()}</p>
                                         </div>
                                         <div className="flex items-center gap-[5px]">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none">

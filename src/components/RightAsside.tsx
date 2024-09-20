@@ -25,7 +25,13 @@ export default function RightAsside() {
                             img={item.images[0].image}
                             title={item.name}
                             count={item.comments?.length}
-                            date={item.created_at.split("-").at(-1).split("T")[0]}
+                            date={(() => {
+                                let a = item?.created_at.split("-").reverse()
+                                let b = a[0].split("T")[0]
+                                let d = [a[1], a[2]]
+                                let c = [b, ...d]
+                                return c.join(".")
+                            })()}
                             titleLink={`/news/${item.id}`}
                             column={true}
                             user={item.user.email}

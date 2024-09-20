@@ -54,7 +54,13 @@ export default function Front() {
                                         view={item.views}
                                         count={0}
                                         newsLink="/"
-                                        date={item.created_at.split("-").at(-1).split("T")[0]}
+                                        date={(() => {
+                                            let a = item?.created_at.split("-").reverse()
+                                            let b = a[0].split("T")[0]
+                                            let d = [a[1], a[2]]
+                                            let c = [b, ...d]
+                                            return c.join(".")
+                                        })()}
                                         titleLink={`/news/${item.id}`}
                                     />
                                 </SwiperSlide>

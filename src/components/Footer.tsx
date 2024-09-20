@@ -35,7 +35,13 @@ export default function Footer() {
                                         key={ind}
                                         img={el?.images[0].image}
                                         title={<span className="text-white">{el?.name}</span>}
-                                        date={el.created_at.split("-").at(-1).split("T")[0]}
+                                        date={(() => {
+                                            let a = el?.created_at.split("-").reverse()
+                                            let b = a[0].split("T")[0]
+                                            let d = [a[1], a[2]]
+                                            let c = [b, ...d]
+                                            return c.join(".")
+                                        })()}
                                         count={0}
                                         titleLink={`/news/${el.id}`}
                                     />

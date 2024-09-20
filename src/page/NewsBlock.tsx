@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import API from "../axios";
+import API, { AUTHAPI } from "../axios";
 import { Share } from "../components/LinksNo";
 
 export default function NewsBlock() {
@@ -25,6 +25,22 @@ export default function NewsBlock() {
             })
         setOwnUser(JSON.parse(localStorage.getItem("user")))
     }, [params, check])
+
+    useEffect(() => {
+        if (!!state) {
+            setTimeout(() => {
+                let token = localStorage.getItem('token')
+                fetch(`https://aodatka.pythonanywhere.com/api/v1/news/${params.id}/`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                        'Authorization': `Token ${token}`,
+                    },
+                    body: JSON.stringify({ views: state?.views + 1 })
+                })
+            }, 2000);
+        }
+    }, [state])
 
     const handle__Submit = (e: any) => {
         e.preventDefault()
@@ -74,7 +90,16 @@ export default function NewsBlock() {
                         <svg xmlns="http://www.w3.org/2000/svg" width="13px" height="13px" viewBox="0 0 24 24" fill="none">
                             <path d="M12 17V12L14.5 10.5M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
-                        <p className="text-[#999] text-[12px] font-roboto font-[400]">{state?.created_at.split("-").at(-1).split("T")[0]}</p>
+                        <p className="text-[#999] text-[12px] font-roboto font-[400]">{(() => {
+                            let a = state?.created_at.split("-").reverse()
+                            if (!!a && !!a[0]) {
+                                let b = a[0].split("T")[0]
+                                let d = [a[1], a[2]]
+                                let c = [b, ...d]
+                                return c.join(".")
+                            }
+                            return 0
+                        })()}</p>
                     </div>
                     <div className="flex items-center gap-[5px]">
                         <svg xmlns="http://www.w3.org/2000/svg" width="13px" height="13px" viewBox="0 0 32 32" fill="none">
@@ -106,7 +131,7 @@ export default function NewsBlock() {
                         {
                             !!state
                             &&
-                            news.data?.results.slice(0, 2).map((item: any, index: number) => (
+                            news.data?.results.slice(0, 3).map((item: any, index: number) => (
                                 <div key={index}>
                                     <img src={item.images[0].image} className="w-[100%] h-[150px] object-cover" />
                                     <Link to={`/news/${item.id}/`} className="text-[#111111] limit_the_text text-[14px] block font-roboto font-[600] leading-[18px] mt-[18px] hover:text-base_blue duration-200">{item?.name}</Link>
@@ -124,7 +149,7 @@ export default function NewsBlock() {
                             &&
                             comments?.map((item: any, index: number) => (
                                 <div key={index} className="flex items-center gap-[10px]">
-                                    <img src={item.commentator.avatar} className="w-[20px] h-[20px] rounded-[50%] bg-[gray]" />
+                                    <img src={item.commentator.avatar} className="w-[20px] h-[20px] rounded-[50%] object-cover bg-[gray]" />
                                     <div>
                                         <p className="text-[12px] font-[400] text-base_blue leading-[18px]">{item.commentator.email}</p>
                                         <p className="text-[12px] font-[400] text-[#111] leading-[18px]">{item.decription}</p>
@@ -134,7 +159,7 @@ export default function NewsBlock() {
                         }
                     </div>
                     <form className="w-[100%] mt-[50px]" onSubmit={handle__Submit}>
-                        <input type="text" name="decription" placeholder="Enter your comment" className="w-[100%] h-[40px] border mb-[10px] border-solid border-[#111] rounded-[4px] text-[14px] font-[400] leading-[18px] text-[#111] outline-none px-[10px]" />
+                        <input type="text" name="decription" placeholder="Оставить комментарий" className="w-[100%] h-[40px] border mb-[10px] border-solid border-[#111] rounded-[4px] text-[14px] font-[400] leading-[18px] text-[#111] outline-none px-[10px]" />
                         <button className="bg-base_blue text-white px-[10px] py-[5px] rounded-[6px]">отправить</button>
                     </form>
                 </div>

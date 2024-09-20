@@ -66,7 +66,7 @@ const data = [
     },
     {
         href: "/login",
-        text: "Login",
+        text: "Войти",
         model: false
     }
 ]

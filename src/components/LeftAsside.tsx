@@ -41,7 +41,16 @@ export default function LeftAsside({ showArchive }: { showArchive?: boolean }) {
                     !!state
                     &&
                     state?.results.map((item: any, index: number) => (
-                        <AssideBlock img={item.images[0].image} title={item.name} date={item.created_at.split("-").at(-1).split("T")[0]} count={0} titleLink={`/news/${item.id}`} key={index} />
+                        <AssideBlock img={item.images[0].image} title={item.name} date={(() => {
+                            let a = item.created_at.split("-").reverse()
+                            if (!!a && !!a[0]) {
+                                let b = a[0].split("T")[0]
+                                let d = [a[1], a[2]]
+                                let c = [b, ...d]
+                                return c.join(".")
+                            }
+                            return "0"
+                        })()} count={0} titleLink={`/news/${item.id}`} key={index} />
                     ))
                 }
                 <button className="flex items-center justify-center gap-[5px] w-full bg-base_blue h-[28px] text-[13px] font-[700] font-roboto text-white" onClick={() => handle__End()}>
