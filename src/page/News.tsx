@@ -54,12 +54,6 @@ export default function News() {
                                         </svg>
                                         <p className="text-[#999] text-[12px] font-roboto font-[400]">{item.views}</p>
                                     </div>
-                                    {/* <div className="flex items-center gap-[5px]">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="13px" height="13px" viewBox="0 0 32 32" fill="none">
-                                            <path d="M23.875 25C23.875 25 27.937 29 28.937 30C30.547 31.609 31 31 31 30V8C31 7.447 30.553 7 30 7H8C7.447 7 7 7.447 7 8V26C7 26.553 7.447 27 8 27H22M13 15H25M13 19H18M25 4V2C25 1.437 24.604 1 24 1H2C1.447 1 1 1.447 1 2V20C1 20.553 1.447 21 2 21H7" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
-                                        <p className="text-[#999] text-[12px] font-roboto font-[400]">10</p>
-                                    </div> */}
                                 </div>
                             </div>
                         )
@@ -91,12 +85,6 @@ export default function News() {
                                             </svg>
                                             <p className="text-[#999] text-[12px] font-roboto font-[400]">{item.views}</p>
                                         </div>
-                                        {/* <div className="flex items-center gap-[5px]">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="13px" height="13px" viewBox="0 0 32 32" fill="none">
-                                                <path d="M23.875 25C23.875 25 27.937 29 28.937 30C30.547 31.609 31 31 31 30V8C31 7.447 30.553 7 30 7H8C7.447 7 7 7.447 7 8V26C7 26.553 7.447 27 8 27H22M13 15H25M13 19H18M25 4V2C25 1.437 24.604 1 24 1H2C1.447 1 1 1.447 1 2V20C1 20.553 1.447 21 2 21H7" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                            </svg>
-                                            <p className="text-[#999] text-[12px] font-roboto font-[400]">10</p>
-                                        </div> */}
                                     </div>
                                     <p dangerouslySetInnerHTML={{ __html: item.body }} className="text-[#666] font-roboto font-[400] text-[14px] leading-[20px] limit_the_text mt-[10px]" />
                                 </div>

@@ -71,7 +71,8 @@ export default function LogIn() {
                     <p className={`text-[12px] font-[400] font-roboto leading-[18px] text-[red] mt-[5px] ${!error.password ? "hidden" : ""}`}>{error.password}</p>
                 </div>
                 <p className="text-[12px] font-[400] font-roboto leading-[18px] text-[red] mt-[5px] text-center">{error?.detail}</p>
-                <button type="submit" className="text-[24px] leading-[28px] text-white font-[700] font-roboto rounded-[10px] bg-[#d1ab44] shadow-[1px_4px_4px_0_rgba(0,_0,_0,_0.25)] w-[30%] mx-auto h-[50px] mt-[20px] min-w-[159px]">Отправить</button>
+                <button type="submit" className="text-[24px] leading-[28px] text-white font-[700] font-roboto rounded-[10px] bg-[#d1ab44] shadow-[1px_4px_4px_0_rgba(0,_0,_0,_0.25)] w-[30%] mx-auto h-[50px] min-w-[159px]">Отправить</button>
+                <div className="text-[14px] text-center font-[400] leading-[18px]">Нет учётной записи? <Link to="/registration" className="underline text-base_blue">Зарегистрироваться</Link></div>
             </form>
         </div>
     )
