@@ -69,7 +69,7 @@ export default function LeftAsside({ showArchive }: { showArchive?: boolean }) {
                             !!archive
                             &&
                             archive.map((item: any, index: number) => (
-                                <p key={index} className="text-[14px] text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">{item.date}</p>
+                                <p key={index} className="text-[14px] cursor-pointer text-[#111111] font-roboto font-[500] leading-[18px] hover:text-base_blue duration-200">{item.date}</p>
                             ))
                         }
                     </div>

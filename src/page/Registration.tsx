@@ -123,7 +123,7 @@ export default function Registration() {
                                     </g>
                                 </svg>
                             </div>
-                            <input type="password" placeholder="Подтвердить пороль..." name="password2" required className={`font-[500] outline-none w-[100%] font-roboto text-[16px] text-[#000] placeholder:text-[#000] leading-[18px] h-[20px] opacity-[60%] ${!!error.password2 ? "border-b border-solid border-b-[red]" : ""}`} />
+                            <input type="password" placeholder="Подтвердить пароль..." name="password2" required className={`font-[500] outline-none w-[100%] font-roboto text-[16px] text-[#000] placeholder:text-[#000] leading-[18px] h-[20px] opacity-[60%] ${!!error.password2 ? "border-b border-solid border-b-[red]" : ""}`} />
                         </label>
                         <p className="text-[12px] font-[400] font-roboto leading-[18px] text-[red] mt-[5px]">{error.password2}</p>
                     </div>
@@ -166,7 +166,7 @@ export default function Registration() {
                         <input type="text" placeholder="Биография..." name="bio" required className="font-[500] outline-none w-[100%] font-roboto text-[16px] text-[#000] placeholder:text-[#000] leading-[18px] h-[20px] opacity-[60%]" />
                     </label>
                     <label className="rounded-[10px] w-[100%] bg-white shadow-[0_0_5px_1px_rgba(0,_0,_0,_0.3)] p-[10px] px-[15px] flex items-center gap-[20px] cursor-pointer">
-                        <input type="text" placeholder="Трудавое деятельность..." name="labor_activity" required className="font-[500] outline-none w-[100%] font-roboto text-[16px] text-[#000] placeholder:text-[#000] leading-[18px] h-[20px] opacity-[60%]" />
+                        <input type="text" placeholder="Трудовое деятельность..." name="labor_activity" required className="font-[500] outline-none w-[100%] font-roboto text-[16px] text-[#000] placeholder:text-[#000] leading-[18px] h-[20px] opacity-[60%]" />
                     </label>
                     <label className="rounded-[10px] w-[100%] bg-white shadow-[0_0_5px_1px_rgba(0,_0,_0,_0.3)] p-[10px] px-[15px] flex items-center gap-[20px] cursor-pointer">
                         <input type="text" placeholder="Образование..." name="education" required className="font-[500] outline-none w-[100%] font-roboto text-[16px] text-[#000] placeholder:text-[#000] leading-[18px] h-[20px] opacity-[60%]" />

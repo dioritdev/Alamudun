@@ -66,7 +66,7 @@ export default function LogIn() {
                                 </g>
                             </svg>
                         </div>
-                        <input type="password" placeholder="Введите пороль..." name="password" required className={`font-[500] outline-none w-[100%] font-roboto text-[16px] text-[#000] placeholder:text-[#000] leading-[18px] h-[20px] opacity-[60%] ${!!error.password ? "border-b border-solid border-b-[red]" : ""}`} />
+                        <input type="password" placeholder="Введите пароль..." name="password" required className={`font-[500] outline-none w-[100%] font-roboto text-[16px] text-[#000] placeholder:text-[#000] leading-[18px] h-[20px] opacity-[60%] ${!!error.password ? "border-b border-solid border-b-[red]" : ""}`} />
                     </label>
                     <p className={`text-[12px] font-[400] font-roboto leading-[18px] text-[red] mt-[5px] ${!error.password ? "hidden" : ""}`}>{error.password}</p>
                 </div>

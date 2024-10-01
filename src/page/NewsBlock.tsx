@@ -122,6 +122,11 @@ export default function NewsBlock() {
                             <img src={item.image} key={index} className="w-[100%] h-[100%] object-cover" />
                         ))
                     }
+                    {
+                        !!state?.viedo_link
+                        &&
+                        <iframe src={state?.viedo_link} className="w-[100%] h-[100%] min-h-[400px] object-cover"></iframe>
+                    }
                 </div>
                 <p dangerouslySetInnerHTML={{ __html: state?.body }} className="text-[#666] font-roboto font-[400] text-[15px] leading-[20px] mt-[10px]" />
 

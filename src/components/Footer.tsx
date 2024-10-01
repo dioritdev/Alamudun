@@ -30,44 +30,53 @@ export default function Footer() {
                             title={item.title}
                         >
                             {
-                                item.children.map((el: any, ind: number) => (
-                                    <AssideBlock
-                                        key={ind}
-                                        img={el?.images[0].image}
-                                        title={<span className="text-white">{el?.name}</span>}
-                                        date={(() => {
-                                            let a = el?.created_at.split("-").reverse()
-                                            let b = a[0].split("T")[0]
-                                            let d = [a[1], a[2]]
-                                            let c = [b, ...d]
-                                            return c.join(".")
-                                        })()}
-                                        count={0}
-                                        titleLink={`/news/${el.id}`}
-                                    />
-                                ))
+                                item.children.map((el: any, ind: number) => {
+                                    if (!!el) {
+                                        return (
+                                            <AssideBlock
+                                                key={ind}
+                                                img={el?.images[0].image}
+                                                title={<span className="text-white">{el?.name}</span>}
+                                                date={(() => {
+                                                    let a = el?.created_at.split("-").reverse()
+                                                    console.log(a[0].split("T")[0]);
+                                                    let b = a[0].split("T")[0]
+                                                    let d = [a[1], a[2]]
+                                                    let c = [b, ...d]
+                                                    return c.join(".")
+                                                })()}
+                                                count={0}
+                                                titleLink={`/news/${el.id}`}
+                                            />
+                                        )
+                                    } else {
+                                        return (
+                                            <div></div>
+                                        )
+                                    }
+                                })
                             }
                         </FooterBlock>
                     ))
                 }
                 <FooterBlock title="Контакты">
                     <div className="max-w-[300px] 600px:max-w-[100%] 600px:min-w-[100%] w-[100%] min-w-[200px] flex flex-col gap-[10px]">
-                        <div className="flex items-center justify-between w-[100%]">
-                            <p className="text-white text-[14px] font-roboto font-[500] leading-[18px]">Новости</p>
-                            <p className="text-white text-[14px] font-roboto font-[500] leading-[18px]">(117)</p>
-                        </div>
-                        <div className="flex items-center justify-between w-[100%]">
-                            <p className="text-white text-[14px] font-roboto font-[500] leading-[18px]">Без категории</p>
-                            <p className="text-white text-[14px] font-roboto font-[500] leading-[18px]">(4)</p>
-                        </div>
-                        <div className="flex items-center justify-between w-[100%]">
-                            <p className="text-white text-[14px] font-roboto font-[500] leading-[18px]">Паспорт</p>
-                            <p className="text-white text-[14px] font-roboto font-[500] leading-[18px]">(1)</p>
-                        </div>
-                        <div className="flex items-center justify-between w-[100%]">
-                            <Link to="/postanovleniya" className="text-white text-[14px] font-roboto font-[500] leading-[18px]">Постановления</Link>
-                            <p className="text-white text-[14px] font-roboto font-[500] leading-[18px]">(1)</p>
-                        </div>
+                        <Link to={`/news/search/Без категории`} className="flex items-center justify-between cursor-pointer text-white duration-200">
+                            <p className="text-inherit font-roboto text-[14px] leading-[18px] font-[600]">Без категории</p>
+                            <p className="text-inherit font-roboto text-[14px] leading-[18px] font-[600]">(4)</p>
+                        </Link>
+                        <Link to={`/news/search/Новости`} className="flex items-center justify-between cursor-pointer text-white duration-200">
+                            <p className="text-inherit font-roboto text-[14px] leading-[18px] font-[600]">Новости</p>
+                            <p className="text-inherit font-roboto text-[14px] leading-[18px] font-[600]">(117)</p>
+                        </Link>
+                        <Link to={`/news/search/Паспорт`} className="flex items-center justify-between cursor-pointer text-white duration-200">
+                            <p className="text-inherit font-roboto text-[14px] leading-[18px] font-[600]">Паспорт</p>
+                            <p className="text-inherit font-roboto text-[14px] leading-[18px] font-[600]">(1)</p>
+                        </Link>
+                        <Link to={`/news/search/Постановления`} className="flex items-center justify-between cursor-pointer text-white duration-200">
+                            <p className="text-inherit font-roboto text-[14px] leading-[18px] font-[600]">Постановления</p>
+                            <p className="text-inherit font-roboto text-[14px] leading-[18px] font-[600]">(1)</p>
+                        </Link>
                     </div>
                 </FooterBlock>
             </div>
