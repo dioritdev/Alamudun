@@ -71,7 +71,7 @@ export default function Registration() {
                     <input type="file" onChange={handle__Avatar} className="hidden" name="avatar" />
                 </label>
                 <div className="flex gap-[20px] w-[100%] 600px:flex-col">
-                    <div className="flex flex-col">
+                    <div className="flex flex-col w-[100%]">
                         <label className="rounded-[10px] w-[100%] bg-white shadow-[0_0_5px_1px_rgba(0,_0,_0,_0.3)] p-[10px] px-[15px] flex items-center gap-[20px] cursor-pointer">
                             <div className="w-[20px] h-[20px]">
                                 <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -85,7 +85,7 @@ export default function Registration() {
                         </label>
                         <p className="text-[12px] font-[400] font-roboto leading-[18px] text-[red] mt-[5px]">{error.first_name}</p>
                     </div>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col w-[100%]">
                         <label className="rounded-[10px] w-[100%] bg-white shadow-[0_0_5px_1px_rgba(0,_0,_0,_0.3)] p-[10px] px-[15px] flex items-center h-[max-content] gap-[20px] cursor-pointer">
                             <div className="w-[20px] h-[20px]">
                                 <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -101,7 +101,7 @@ export default function Registration() {
                     </div>
                 </div>
                 <div className="flex 600px:flex-col gap-[20px]">
-                    <div className="flex flex-col">
+                    <div className="flex flex-col w-[100%]">
                         <label className="rounded-[10px] w-[100%] bg-white shadow-[0_0_5px_1px_rgba(0,_0,_0,_0.3)] p-[10px] px-[15px] flex items-center gap-[20px] cursor-pointer">
                             <div className="w-[20px] h-[20px]">
                                 <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -114,7 +114,7 @@ export default function Registration() {
                         </label>
                         <p className="text-[12px] font-[400] font-roboto leading-[18px] text-[red] mt-[5px]">{error.password1}</p>
                     </div>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col w-[100%]">
                         <label className="rounded-[10px] w-[100%] bg-white shadow-[0_0_5px_1px_rgba(0,_0,_0,_0.3)] p-[10px] px-[15px] flex items-center gap-[20px] cursor-pointer">
                             <div className="w-[20px] h-[20px]">
                                 <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
