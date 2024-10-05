@@ -43,7 +43,7 @@ export default function LogIn() {
 
     return (
         <div className="flex items-center justify-center w-[100%] h-[100dvh] bg-[#2148C0]">
-            <form className="max-w-[500px] w-[100%] rounded-[12px] bg-white p-[20px] py-[50px] flex flex-col gap-[20px] px-[5%]" onChange={handle__Change} onSubmit={handle__Submit}>
+            <form className="max-w-[500px] 600px:max-w-[90%] w-[100%] rounded-[12px] bg-white p-[20px] py-[50px] flex flex-col gap-[20px] px-[5%]" onChange={handle__Change} onSubmit={handle__Submit}>
                 <h1 className="text-[#000] font-roboto font-[400] text-[28px] leading-[32px] mx-auto mb-[20px]">Вход</h1>
                 <div className="flex flex-col">
                     <label className="rounded-[10px] w-[100%] bg-white shadow-[0_0_5px_1px_rgba(0,_0,_0,_0.3)] p-[10px] px-[15px] flex items-center gap-[20px] cursor-pointer">

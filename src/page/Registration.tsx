@@ -58,7 +58,7 @@ export default function Registration() {
 
     return (
         <div className="flex items-center justify-center w-[100%] h-[100%] fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] p-[20px] bg-[#2148C0]">
-            <form className="max-w-[80%] w-[100%] rounded-[12px] flex flex-col mx-auto gap-[20px] h-[max-content] p-[32px] py-[50px] overflow-auto bg-white" onChange={handle__Change} onSubmit={handle__Submit}>
+            <form className="max-w-[80%] w-[100%] 425px:max-w-[95%] 425px:h-[90%] rounded-[12px] flex flex-col mx-auto gap-[20px] h-[max-content] p-[32px] py-[50px] 1024px:h-[80%] overflow-auto bg-white" onChange={handle__Change} onSubmit={handle__Submit}>
                 <h1 className="text-[#000] font-roboto font-[400] text-[28px] leading-[32px] mx-auto mb-[20px]">Регистрация</h1>
                 <label className="w-[150px] min-w-[150px] max-w-[150px] h-[150px] min-h-[150px] max-h-[150px] rounded-[50%] bg-white border border-solid border-[gray] overflow-hidden mx-auto">
                     {
@@ -172,7 +172,7 @@ export default function Registration() {
                         <input type="text" placeholder="Образование..." name="education" required className="font-[500] outline-none w-[100%] font-roboto text-[16px] text-[#000] placeholder:text-[#000] leading-[18px] h-[20px] opacity-[60%]" />
                     </label>
                 </div>
-                <button type="submit" className="text-[24px] leading-[28px] text-white font-[700] font-roboto rounded-[10px] bg-[#d1ab44] shadow-[1px_4px_4px_0_rgba(0,_0,_0,_0.25)] w-[30%] mx-auto h-[50px] mt-[20px] min-w-[159px]">Отправить</button>
+                <button type="submit" className="text-[24px] leading-[28px] text-white font-[700] font-roboto rounded-[10px] bg-[#d1ab44] shadow-[1px_4px_4px_0_rgba(0,_0,_0,_0.25)] w-[30%] mx-auto h-[50px] min-h-[50px] 1024px:min-h-[40px] mt-[20px] min-w-[159px]">Отправить</button>
             </form>
         </div>
     )
