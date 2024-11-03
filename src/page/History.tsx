@@ -28,8 +28,8 @@ export default function History() {
             </div>
             <div className="flex 800px:flex-col justify-center gap-[20px] py-[20px] px-4">
                 <div className="w-[800px] 800px:w-[100%] h-[max-content] bg-white p-[20px]">
-                    <h2 className="text-[16px] text-center font-roboto text-[#666] leading-[18px] mb-[20px]">АЛАМУДУНСКИЙ РАЙОННЫЙ ГОСУДАРСТВЕННЫЙ АРХИВ</h2>
-                    <h2 className="text-[16px] text-center font-roboto text-[#666] leading-[18px] mb-[20px]">АЛАМУДУНСКИЙ АЙЫЛ ОКМОТУ</h2>
+                    <h2 className="text-[16px] text-center font-roboto text-[#666] leading-[18px] mb-[20px]">ДАТКА РАЙОННЫЙ ГОСУДАРСТВЕННЫЙ АРХИВ</h2>
+                    <h2 className="text-[16px] text-center font-roboto text-[#666] leading-[18px] mb-[20px]">ДАТКА АЙЫЛ ОКМОТУ</h2>
                     <div className="my-[50px]">
                         {
                             !!state

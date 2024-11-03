@@ -9,11 +9,14 @@ export default function SearchNews() {
     const [state, setState] = useState<any>(null)
 
     useEffect(() => {
-        API.get(`news/?category=&user=&location=${params.s}&rating=`)
+        let a = params.s.split("&")
+        let location = a[0].split("=")[1]
+        API.get(`news/?category=&user=&location=${location}&rating=`)
             .then((res: any) => {
                 setState(res.data)
                 setCount(Math.ceil(res.payload?.count / 6))
             })
+        console.log(a, location);
     }, [params])
 
     return (
